@@ -32,7 +32,6 @@ st.sidebar.title("⚙️ Navigasi")
 menu = st.sidebar.radio(
     "Pilih Topik:",
     [
-        "🏠 Beranda",
         "✂️ Tokenisasi",
         "📝 Lematisasi",
         "🏷️ POS Tagging",
@@ -71,49 +70,10 @@ if "last_text" not in st.session_state or st.session_state.last_text != user_tex
 
 doc = st.session_state.doc
 sentences = st.session_state.sentences
-
-# ═════════════════════════════════════════════════════════════════════════════
-# HALAMAN: BERANDA
-# ═════════════════════════════════════════════════════════════════════════════
-if menu == "🏠 Beranda":
-    st.title("🇮🇩 Modul Praktikum Pengolahan Bahasa Alami")
-    st.subheader(
-        "Processing and Understanding Text in Indonesian Language using spaCy")
-    st.markdown(
-        """
-        **Program Studi Informatika**  
-        Fakultas Teknologi Industri – Universitas Atma Jaya Yogyakarta
-
-        ---
-        ### 📦 Kebutuhan
-        | Komponen | Keterangan |
-        |---|---|
-        | Python | ≥ 3.8 |
-        | spaCy | NLP pipeline |
-        | id_nusantara | Model spaCy Bahasa Indonesia |
-        | Sastrawi | Stemmer Bahasa Indonesia |
-
-        ---
-        ### 🗺️ Topik yang Tersedia
-        - **Tokenisasi** – Tokenisasi kalimat & kata  
-        - **Lematisasi** – Bentuk dasar kata (lemma & norm)  
-        - **POS Tagging** – Coarse-grained & fine-grained  
-        - **Dependency Parsing** – Relasi sintaksis antar kata  
-        - **Case Identification** – Lowercase token  
-        - **Morfologi** – Fitur morfologis tiap token  
-        - **Stemming (Sastrawi)** – Stemming algoritma Nazief–Adriani  
-
-        👈 Gunakan **sidebar** untuk navigasi dan mengubah teks input.
-        """
-    )
-
-    st.info(
-        f"📊 Teks saat ini memiliki **{len(sentences)} kalimat** dan **{len(list(doc))} token**.")
-
 # ═════════════════════════════════════════════════════════════════════════════
 # HALAMAN: TOKENISASI
 # ═════════════════════════════════════════════════════════════════════════════
-elif menu == "✂️ Tokenisasi":
+if menu == "✂️ Tokenisasi":
     st.title("✂️ Tokenisasi")
 
     st.subheader("Tokenisasi Kalimat")
