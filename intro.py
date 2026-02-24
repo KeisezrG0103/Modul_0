@@ -28,7 +28,7 @@ nlp = load_nlp()
 stemmer = load_stemmer()
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
-st.sidebar.title("⚙️ Navigasi")
+st.sidebar.title("Navigasi")
 menu = st.sidebar.radio(
     "Pilih Topik:",
     [
@@ -222,11 +222,6 @@ elif menu == "🔬 Morfologi":
 # ═════════════════════════════════════════════════════════════════════════════
 elif menu == "🌿 Stemming (Sastrawi)":
     st.title("🌿 Stemming dengan Sastrawi")
-    st.markdown(
-        "Sastrawi menggunakan algoritma **Nazief–Adriani** untuk mengembalikan "
-        "kata ke bentuk dasarnya dalam Bahasa Indonesia."
-    )
-
     sent_idx = st.selectbox(
         "Pilih kalimat:", range(len(sentences)),
         format_func=lambda i: f"Kalimat {i}: {sentences[i].text[:60]}…",
