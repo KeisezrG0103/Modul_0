@@ -99,8 +99,7 @@ if menu == "✂️ Tokenisasi":
 elif menu == "📝 Lematisasi":
     st.title("📝 Lematisasi")
     st.markdown(
-        "Lematisasi mengembalikan kata ke **bentuk kamus** (lemma). "
-        "`norm_` adalah normalisasi ortografis."
+        "Lematisasi mengubah kata ke bentuk dasarnya (lemma) dan bentuk normalnya (norm)." 
     )
 
     sent_idx = st.selectbox(
@@ -223,7 +222,17 @@ elif menu == "🔬 Morfologi":
     )
     sent = sentences[sent_idx]
     rows = [{"Token": t.text, "Morph": str(t.morph)} for t in sent]
-    st.dataframe(pd.DataFrame(rows), use_container_width=True)
+    df = pd.DataFrame(rows)
+
+    # highlight jika morph tidak kosong
+    def highlight_changed_morph(row):
+        color = "background-color: #d4f4dd" if row["Morph"] not in (
+            "", "[]", "None") else ""
+        return [color] * len(row)
+
+    st.dataframe(df.style.apply(highlight_changed_morph, axis=1),
+                 use_container_width=True)
+
 
     # Detail per token
     st.subheader("Detail Fitur Morfologi per Token")
