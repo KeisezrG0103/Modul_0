@@ -301,4 +301,16 @@ elif menu == "🌿 Stemming (Sastrawi)":
         }
         for t in sent
     ]
-    st.dataframe(pd.DataFrame(rows_cmp), use_container_width=True)
+    df_cmp = pd.DataFrame(rows_cmp)
+
+    # highlight jika lemma berbeda dari stem
+    def highlight_changed_cmp(row):
+        lemma = row["Lemma (spaCy)"]
+        stem = row["Stem (Sastrawi)"]
+        color = "background-color: #d4f4dd" if lemma != stem else ""
+        return [color] * len(row)
+
+    st.dataframe(df_cmp.style.apply(highlight_changed_cmp, axis=1),
+                 use_container_width=True)
+    st.caption(
+        "🟢 Baris berwarna hijau = Lemma (spaCy) berbeda dari Stem (Sastrawi).")
