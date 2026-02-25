@@ -108,9 +108,28 @@ elif menu == "📝 Lematisasi":
         format_func=lambda i: f"Kalimat {i}: {sentences[i].text[:60]}…",
     )
     sent = sentences[sent_idx]
-    rows = [{"Token": t.text, "Lemma": t.lemma_, "Norm": t.norm_}
-            for t in sent]
-    st.dataframe(pd.DataFrame(rows), use_container_width=True)
+
+    rows = [
+        {
+            "Token": t.text,
+            "Lemma": t.lemma_,
+            "Norm": t.norm_,
+            "Perbedaan": f"{t.lemma_} → {t.norm_}" if t.lemma_ != t.norm_ else "",
+        }
+        for t in sent
+    ]
+    df = pd.DataFrame(rows)
+
+    def highlight_changed(row):
+        changed = (row["Token"] != row["Lemma"]) or (
+            row["Token"] != row["Norm"]) or (row["Perbedaan"] != "")
+        color = "background-color: #d4f4dd" if changed else ""
+        return [color] * len(row)
+
+    st.dataframe(df.style.apply(highlight_changed, axis=1),
+                 use_container_width=True)
+    st.caption(
+        "🟢 Baris berwarna hijau = kata berubah oleh proses lemmatisasis.")
 
 # ═════════════════════════════════════════════════════════════════════════════
 # HALAMAN: POS TAGGING
